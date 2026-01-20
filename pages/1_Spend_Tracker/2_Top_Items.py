@@ -7,13 +7,14 @@ st.title("Top Shop Items")
 # Toggle
 metric_type = st.radio(
     "View values as:",
-    options=["Gold", "Dollars"],
+    options=["Dollars", "Gold"],
     horizontal=True
 )
 
-limit = st.slider("Number of items", 5, 50, 20)
+limit = st.slider("Show Top X Items", 5, 50, 10)
 
 df = top_shop_items(day_key())
+df = df.head(limit)
 
 if metric_type == "Gold":
     y_col = "total_gold_spent"

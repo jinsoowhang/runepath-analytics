@@ -16,6 +16,7 @@ def daily_gold_spent(_day_key):
         SUM(cost)/50 AS estimated_dollar_spend
     FROM shop_history
     WHERE cost > 0
+      AND player NOT IN (19, 29)
     GROUP BY day
     ORDER BY day;
     """
@@ -32,6 +33,7 @@ def top_shop_items(_day_key):
         SUM(cost)/50 AS estimated_dollar_spend
     FROM shop_history
     WHERE cost > 0
+      AND player NOT IN (19, 29)
     GROUP BY title
     ORDER BY total_gold_spent DESC;
     """
@@ -41,13 +43,25 @@ def top_shop_items(_day_key):
 def top_spenders(_day_key):
     engine = get_engine()
     query = f"""
+    WITH player_cte as (
+
     SELECT 
-        player,
+        id,
+        name
+    FROM players
+
+    )
+
+    SELECT 
+        s.player as player_id,
+        p.name as player_name,
         SUM(cost) AS total_gold_spent,
         SUM(cost)/50 AS estimated_dollar_spend
-    FROM shop_history
-    WHERE cost > 0
-    GROUP BY player
+    FROM player_cte p 
+    JOIN shop_history s
+    ON p.id = s.player 
+    WHERE s.player NOT IN (19, 29)
+    GROUP BY s.player, p.name
     ORDER BY total_gold_spent DESC;
     """
     return pd.read_sql(query, engine)
@@ -62,6 +76,7 @@ def monthly_gold_spent(_day_key):
         SUM(cost)/50 AS estimated_dollar_spend
     FROM shop_history
     WHERE cost > 0
+      AND player NOT IN (19, 29)
     GROUP BY month
     ORDER BY month;
     """
