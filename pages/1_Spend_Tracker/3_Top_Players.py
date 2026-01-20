@@ -1,5 +1,5 @@
 import streamlit as st
-from src.queries import top_spenders
+from src.queries import top_spenders, day_key
 from src.charts import bar_chart
 
 st.title("Top Spenders")
@@ -11,9 +11,7 @@ metric_type = st.radio(
     horizontal=True
 )
 
-limit = st.slider("Number of players", 5, 50, 20)
-
-df = top_spenders(limit)
+df = top_spenders(day_key())
 
 if metric_type == "Gold":
     y_col = "total_gold_spent"

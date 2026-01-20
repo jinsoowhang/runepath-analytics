@@ -1,5 +1,5 @@
 import streamlit as st
-from src.queries import monthly_gold_spent
+from src.queries import monthly_gold_spent, day_key
 from src.charts import line_chart
 
 st.title("Monthly Gold Trends")
@@ -11,7 +11,7 @@ metric_type = st.radio(
     horizontal=True
 )
 
-df = monthly_gold_spent()
+df = monthly_gold_spent(day_key())
 
 if metric_type == "Gold":
     y_col = "total_gold_spent"

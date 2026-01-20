@@ -1,11 +1,11 @@
 import streamlit as st
-from src.queries import daily_gold_spent
+from src.queries import daily_gold_spent, day_key
 from src.charts import line_chart
 from src.db import get_engine
 
 st.title("Overview")
 
-df = daily_gold_spent()
+df = daily_gold_spent(day_key())
 
 # Toggle
 metric_type = st.radio(

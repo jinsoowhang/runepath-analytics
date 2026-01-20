@@ -1,7 +1,13 @@
 import pandas as pd
+import streamlit as st
+from datetime import date
 from src.db import get_engine
 
-def daily_gold_spent():
+def day_key():
+    return date.today().isoformat()
+
+@st.cache_data
+def daily_gold_spent(_day_key):
     engine = get_engine()
     query = """
     SELECT 
@@ -15,8 +21,8 @@ def daily_gold_spent():
     """
     return pd.read_sql(query, engine)
 
-
-def top_shop_items(limit=20):
+@st.cache_data
+def top_shop_items(_day_key):
     engine = get_engine()
     query = f"""
     SELECT 
@@ -27,13 +33,12 @@ def top_shop_items(limit=20):
     FROM shop_history
     WHERE cost > 0
     GROUP BY title
-    ORDER BY total_gold_spent DESC
-    LIMIT {limit};
+    ORDER BY total_gold_spent DESC;
     """
     return pd.read_sql(query, engine)
 
-
-def top_spenders(limit=20):
+@st.cache_data
+def top_spenders(_day_key):
     engine = get_engine()
     query = f"""
     SELECT 
@@ -43,13 +48,12 @@ def top_spenders(limit=20):
     FROM shop_history
     WHERE cost > 0
     GROUP BY player
-    ORDER BY total_gold_spent DESC
-    LIMIT {limit};
+    ORDER BY total_gold_spent DESC;
     """
     return pd.read_sql(query, engine)
 
-
-def monthly_gold_spent():
+@st.cache_data
+def monthly_gold_spent(_day_key):
     engine = get_engine()
     query = """
     SELECT 

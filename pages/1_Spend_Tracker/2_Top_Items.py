@@ -1,5 +1,5 @@
 import streamlit as st
-from src.queries import top_shop_items
+from src.queries import top_shop_items, day_key
 from src.charts import bar_chart
 
 st.title("Top Shop Items")
@@ -13,7 +13,7 @@ metric_type = st.radio(
 
 limit = st.slider("Number of items", 5, 50, 20)
 
-df = top_shop_items(limit)
+df = top_shop_items(day_key())
 
 if metric_type == "Gold":
     y_col = "total_gold_spent"
