@@ -1,9 +1,8 @@
 import pandas as pd
 from src.db import get_engine
 
-engine = get_engine()
-
 def daily_gold_spent():
+    engine = get_engine()
     query = """
     SELECT 
         DATE(date) AS day,
@@ -16,7 +15,9 @@ def daily_gold_spent():
     """
     return pd.read_sql(query, engine)
 
+
 def top_shop_items(limit=20):
+    engine = get_engine()
     query = f"""
     SELECT 
         title,
@@ -31,7 +32,9 @@ def top_shop_items(limit=20):
     """
     return pd.read_sql(query, engine)
 
+
 def top_spenders(limit=20):
+    engine = get_engine()
     query = f"""
     SELECT 
         player,
@@ -45,7 +48,9 @@ def top_spenders(limit=20):
     """
     return pd.read_sql(query, engine)
 
+
 def monthly_gold_spent():
+    engine = get_engine()
     query = """
     SELECT 
         DATE_FORMAT(date, '%Y-%m') AS month,

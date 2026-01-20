@@ -1,11 +1,10 @@
-import os
+import streamlit as st
 from sqlalchemy import create_engine
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def get_engine():
+    db = st.secrets["db"]
+
     return create_engine(
-        f"mysql+mysqlconnector://{os.environ['DB_USER']}:{os.environ['DB_PASSWORD']}@"
-        f"{os.environ['DB_HOST']}:{os.environ['DB_PORT']}/{os.environ['DB_NAME']}"
+        f"mysql+mysqlconnector://{db['user']}:{db['password']}@"
+        f"{db['host']}:{db['port']}/{db['database']}"
     )
