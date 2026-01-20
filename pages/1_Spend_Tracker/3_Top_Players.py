@@ -7,11 +7,14 @@ st.title("Top Spenders")
 # Toggle
 metric_type = st.radio(
     "View values as:",
-    options=["Gold", "Dollars"],
+    options=["Dollars", "Gold"],
     horizontal=True
 )
 
+limit = st.slider("Show Top X Spenders", 1, 30, 5)
+
 df = top_spenders(day_key())
+df = df.head(limit)
 
 if metric_type == "Gold":
     y_col = "total_gold_spent"
@@ -26,7 +29,7 @@ else:
 st.plotly_chart(
     bar_chart(
         df,
-        x="player",
+        x="player_name",
         y=y_col,
         title=f"Top Players by {y_label}"
     ),

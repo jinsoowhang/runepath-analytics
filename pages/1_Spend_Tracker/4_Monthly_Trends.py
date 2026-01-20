@@ -7,7 +7,7 @@ st.title("Monthly Gold Trends")
 # Toggle
 metric_type = st.radio(
     "View values as:",
-    options=["Gold", "Dollars"],
+    options=["Dollars", "Gold"],
     horizontal=True
 )
 

@@ -10,6 +10,8 @@ Use the subpages to explore:
 - Top gold sinks
 - Top spenders
 - Monthly patterns
+
+Note: God and GM accounts are filtered out because they’re used for testing.
 """)
 
 st.info("Dollar values are estimated using a 50 gold = $1 conversion.")

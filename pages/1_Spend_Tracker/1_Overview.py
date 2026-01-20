@@ -10,7 +10,7 @@ df = daily_gold_spent(day_key())
 # Toggle
 metric_type = st.radio(
     "View values as:",
-    options=["Gold", "Dollars"],
+    options=["Dollars", "Gold"],
     horizontal=True
 )
 
