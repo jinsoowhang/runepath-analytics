@@ -1,6 +1,7 @@
 import streamlit as st
 from src.queries import daily_gold_spent
 from src.charts import line_chart
+from src.db import get_engine
 
 st.title("Overview")
 
