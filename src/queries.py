@@ -91,11 +91,15 @@ def monthly_gold_spent(_day_key):
 @st.cache_data(ttl=300)  # Cache for 5 minutes
 def daily_active_users():
     query = """
-    SELECT
+    SELECT 
         DATE(login_time) AS day,
-        COUNT(DISTINCT player_id) AS active_players
-    FROM player_logins
-    WHERE player_id NOT IN (19, 29)
+        COUNT(DISTINCT a.id) AS active_players
+    FROM player_logins pl
+    JOIN players p 
+      ON pl.player_id = p.id
+    JOIN accounts a
+      ON p.account_id = a.id
+    WHERE a.id NOT IN (13)  -- Exclude God Account
     GROUP BY day
     ORDER BY day;
     """
@@ -106,9 +110,13 @@ def monthly_active_users():
     query = """
     SELECT
         DATE_FORMAT(login_time, '%Y-%m') AS month,
-        COUNT(DISTINCT player_id) AS active_players
-    FROM player_logins
-    WHERE player_id NOT IN (19, 29)
+        COUNT(DISTINCT a.id) AS active_players
+    FROM player_logins pl
+    JOIN players p 
+      ON pl.player_id = p.id
+    JOIN accounts a
+      ON p.account_id = a.id
+    WHERE a.id NOT IN (13)  -- Exclude God Account
     GROUP BY month
     ORDER BY month;
     """
