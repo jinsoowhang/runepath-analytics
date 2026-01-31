@@ -19,6 +19,12 @@ pages = {
         st.Page("pages/1_Spend_Tracker/3_Top_Players.py", title="Top Players"),
         st.Page("pages/1_Spend_Tracker/4_Monthly_Trends.py", title="Monthly Trends"),
     ],
+    "Player Retention": [
+        st.Page("pages/2_Retention/0_Retention.py", title="Overview"),
+        st.Page("pages/2_Retention/1_Active_Users.py", title="Active Users"),
+        st.Page("pages/2_Retention/2_Cohort_Analysis.py", title="Cohort Analysis"),
+        st.Page("pages/2_Retention/3_Churn.py", title="Churn"),
+    ],
 }
 
 pg = st.navigation(pages)
