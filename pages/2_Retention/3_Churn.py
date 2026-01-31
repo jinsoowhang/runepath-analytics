@@ -6,9 +6,9 @@ st.title("Churn Analysis")
 # Slider for days inactive threshold
 days_threshold = st.slider(
     "Days inactive threshold:",
-    min_value=7,
+    min_value=1,
     max_value=90,
-    value=30,
+    value=7,
     step=1
 )
 
