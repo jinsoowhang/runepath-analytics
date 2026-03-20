@@ -1,19 +1,60 @@
 # RunePath Analytics
 
-Analytics dashboard for the RunePath game server, tracking player spending and retention.
+Analytics dashboard for the RunePath game server — tracks in-game economy and player engagement to help with game balancing and server health.
 
-## Dashboard Pages
+## Features
 
-- **Spend Tracker** — Daily gold/dollar spend, top shop items, top spenders, monthly trends
-- **Player Retention** — DAU/MAU metrics, monthly cohort retention heatmap, churn analysis with adjustable threshold
+### Spend Tracker
+- **Daily Spend Overview** — gold and USD equivalent trends over time (50 gold = $1)
+- **Top Shop Items** — which items generate the most revenue, with purchase counts
+- **Top Spenders** — player leaderboard ranked by total spend
+- **Monthly Trends** — month-over-month spending patterns
+
+### Player Retention
+- **DAU / MAU** — daily and monthly active user counts with 7-day and 30-day rolling averages
+- **Cohort Retention Heatmap** — what percentage of each signup cohort stays active month-over-month
+- **Churn Analysis** — adjustable inactivity threshold to identify at-risk players
 
 ## Tech Stack
 
-Python, Streamlit, Plotly, pandas, SQLAlchemy, MariaDB
+| Layer | Technology |
+|-------|------------|
+| Framework | Streamlit |
+| Charts | Plotly |
+| Data | pandas, SQLAlchemy |
+| Database | MariaDB |
+| Dev | Docker devcontainer, Python 3.11 |
 
-## Run locally
+## Architecture
+
+```
+MariaDB (game server)
+  └── SQLAlchemy queries
+        └── pandas DataFrames
+              └── Plotly charts
+                    └── Streamlit UI
+```
+
+## Project Structure
+
+```
+runepath-analytics/
+├── app.py                    # Entry point
+├── pages/
+│   ├── 0_Home.py
+│   ├── 1_Spend_Tracker/      # 4 spend analysis pages
+│   └── 2_Retention/          # 4 retention analysis pages
+└── src/
+    ├── db.py                 # Database connection
+    ├── queries.py            # SQL queries
+    └── charts.py             # Reusable Plotly components
+```
+
+## Run Locally
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+Requires a `.streamlit/secrets.toml` with MariaDB credentials.
